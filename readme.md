@@ -33,3 +33,10 @@ Log time to a particular task
 ```bash
 t 1:00 --task=1234567
 ```
+
+Log time and Mark Task as completed
+
+```bash
+t 1:00 --complete
+t 1:00 -c
+```
