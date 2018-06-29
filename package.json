@@ -1,7 +1,7 @@
 {
   "name": "teamwork-time-logger",
   "version": "1.0.0",
-  "description": "Log time for Teamwork",
+  "description": "CLI Tool for Logging time for Teamwork",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,17 @@
   "bin": {
     "t": "src/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "time",
+    "teamwork",
+    "log",
+    "logger",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moshie/teamwork-time-logger.git"
+  },
   "author": "David Hewitt <david.hewitt@indigotree.co.uk>",
   "license": "MIT",
   "dependencies": {
