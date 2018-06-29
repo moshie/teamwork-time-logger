@@ -4,9 +4,10 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
+const homedir = require('os').homedir();
 
 exports.getConfig = function () {
-    var config = fs.readFileSync(path.resolve(__dirname, 'config.json'));
+    var config = fs.readFileSync(path.resolve(homedir, '.teamwork-time-logger'));
 
     return JSON.parse(config.toString());
 }
@@ -28,7 +29,11 @@ exports.handleConfig = async function () {
         }
     ]);
 
-    fs.writeFile(path.resolve(__dirname, 'config.json'), JSON.stringify(answer), function (err) {
+    if (answer.domain.indexOf('.teamwork') !== -1) {
+        answer.domain = answer.domain.substr(0, answer.domain.indexOf('.teamwork'));
+    }
+
+    fs.writeFile(path.resolve(homedir, '.teamwork-time-logger'), JSON.stringify(answer), function (err) {
         if (err) {
             return console.log(chalk.red('Could not save your configuration 👎'))
         }
