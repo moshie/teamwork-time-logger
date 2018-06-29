@@ -1,0 +1,22 @@
+{
+  "name": "teamwork-time-logger",
+  "version": "1.0.0",
+  "description": "Log time for Teamwork",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "t": "src/index.js"
+  },
+  "keywords": [],
+  "author": "David Hewitt <david.hewitt@indigotree.co.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.15.1",
+    "inquirer": "^6.0.0",
+    "moment": "^2.22.2",
+    "teamwork-api": "^1.0.1"
+  }
+}
