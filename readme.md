@@ -27,3 +27,9 @@ Log 30 minutes of time
 ```bash
 t 30
 ```
+
+Log time to a particular task
+
+```bash
+t 1:00 --task=1234567
+```

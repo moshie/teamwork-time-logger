@@ -8,7 +8,7 @@ const { getConfig } = require('./config');
 const sanitizeTime = require('./sanitize-time');
 const validate = require('./validate');
 
-const handleTimeLogging = async function (time) {
+const handleTimeLogging = async function (time, command) {
 
     try {
         var { domain, api } = getConfig();
@@ -45,16 +45,25 @@ const handleTimeLogging = async function (time) {
     }
 
     // Enquire
-    var answer = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'task',
-            message: 'What task would you like to log time against?',
-            choices: tasks['todo-items'].map(item => ({ 
-                name: `${chalk.bold(item['project-name'])} - ${chalk.dim(item.content)}`,
-                value: item.id
-            }))
-        },
+    var taskId = command.task;
+
+    if (!command.task) {
+        var answer = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'task',
+                message: 'What task would you like to log time against?',
+                choices: tasks['todo-items'].map(item => ({ 
+                    name: `${chalk.bold(item['project-name'])} - ${chalk.dim(item.content)}`,
+                    value: item.id
+                }))
+            }
+        ]);
+        taskId = answer.task;
+    }
+
+    // Ask for description
+    var description = await inquirer.prompt([
         {
             type: 'input',
             name: 'description',
@@ -66,9 +75,9 @@ const handleTimeLogging = async function (time) {
     // Assign Time to task
     try {
         var fromTime = moment().subtract(subtraction);
-        var makeTask = await tw.tasks.createTime(answer.task, {
+        await tw.tasks.createTime(taskId, {
             'time-entry': {
-                'description': answer.description || '',
+                'description': description.description || '',
                 'person-id': me.person.id,
                 'date': fromTime.format('YYYYMMDD'),
                 'time': fromTime.format('HH:mm'),
@@ -78,7 +87,7 @@ const handleTimeLogging = async function (time) {
             }
         })
     } catch (err) {
-        return console.log(chalk.red(`There was an error while trying to assign time to: "${answer.task}" 🤔`));
+        return console.log(chalk.red(`There was an error while trying to assign time to: "${taskId}" 🤔`));
     }
 
     console.log(chalk.green('🎉 🎉 🎉  Time Logged Successfully! 🎉 🎉 🎉 '));

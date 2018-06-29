@@ -11,6 +11,7 @@ program
 
 program
     .arguments('<time>')
+    .option('-t, --task [taskId]', 'Assign time to a particular task')
     .action(handleTimeLogging);
 
 program
