@@ -12,6 +12,7 @@ program
 program
     .arguments('<time>')
     .option('-t, --task [taskId]', 'Assign time to a particular task')
+    .option('-c, --complete', 'Mark Task as completed')
     .action(handleTimeLogging);
 
 program

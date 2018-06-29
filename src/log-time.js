@@ -90,6 +90,14 @@ const handleTimeLogging = async function (time, command) {
         return console.log(chalk.red(`There was an error while trying to assign time to: "${taskId}" 🤔`));
     }
 
+    if (command.complete) {
+        try {
+            await tw.tasks.complete(taskId);
+        } catch (err) {
+            return console.log(chalk.red(`There was an error while trying to mark task "${taskId}" completed 🤔`));
+        }
+    }
+
     console.log(chalk.green('🎉 🎉 🎉  Time Logged Successfully! 🎉 🎉 🎉 '));
 
 }
